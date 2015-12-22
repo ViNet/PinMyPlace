@@ -4,8 +4,6 @@ import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.util.Base64;
-import android.util.Log;
 
 import com.facebook.FacebookSdk;
 
@@ -29,7 +27,7 @@ public class MyApp extends Application {
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                Log.d( TAG , "KeyHash:" + Base64.encodeToString(md.digest(), Base64.DEFAULT));
+               // Log.d( TAG , "KeyHash:" + Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
         } catch (PackageManager.NameNotFoundException e) {
 

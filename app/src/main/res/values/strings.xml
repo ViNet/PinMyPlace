@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PinMyPlace</string>
+    <string name="facebook_app_id">501433283361919</string>
+
+    <!-- MAIN MENU -->
+    <string name="logout">Logout</string>
 </resources>
