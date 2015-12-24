@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.vit.pinmyplace.models.User;
 import com.example.vit.pinmyplace.utils.PrefUtils;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;

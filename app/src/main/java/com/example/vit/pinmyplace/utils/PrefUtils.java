@@ -3,7 +3,7 @@ package com.example.vit.pinmyplace.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.vit.pinmyplace.User;
+import com.example.vit.pinmyplace.models.User;
 import com.google.gson.Gson;
 
 

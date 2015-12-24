@@ -1,4 +1,4 @@
-package com.example.vit.pinmyplace;
+package com.example.vit.pinmyplace.models;
 
 
 import com.google.gson.annotations.SerializedName;

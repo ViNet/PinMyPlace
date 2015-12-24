@@ -4,4 +4,12 @@
 
     <!-- MAIN MENU -->
     <string name="logout">Logout</string>
+    <string name="title_activity_add_location">AddLocationActivity</string>
+
+    <!-- ADD LOCATION ACTIVITY-->
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="location">Location</string>
+    <string name="title_error">Title can not be empty</string>
+    <string name="last_known">last known</string>
 </resources>
