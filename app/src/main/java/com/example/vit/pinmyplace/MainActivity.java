@@ -113,10 +113,11 @@ public class MainActivity extends AppCompatActivity {
         List<UserLocation> userLocations = UserLocation.find(UserLocation.class, "facebook_Id = ?", user.facebookId);
 
         if(userLocations != null){
-            adapter.setLocations(userLocations);
+
             for(UserLocation location : userLocations){
                 Log.d(MyApp.TAG, location.toString());
             }
+            adapter.setLocations(userLocations);
         }
 
     }

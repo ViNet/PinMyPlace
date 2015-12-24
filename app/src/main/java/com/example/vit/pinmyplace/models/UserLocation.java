@@ -9,21 +9,18 @@ public class UserLocation extends SugarRecord {
     String locationDescription;
     double lat;
     double lng;
+    long createdAt;
 
     //Sugar ORM required empty constructor
     public UserLocation(){
-        facebookId = "0";
-        locationTitle = "";
-        locationDescription = "";
-        lat = 0;
-        lng = 0;
     }
 
     public UserLocation(String facebookId){
+        createdAt = System.currentTimeMillis();
         this.facebookId = facebookId;
     }
 
-    public UserLocation(String title, double lat, double lang){
+    public UserLocation(String title, double lat, double lng){
         this.locationTitle = title;
         this.lat = lat;
         this.lng = lng;
@@ -67,6 +64,10 @@ public class UserLocation extends SugarRecord {
 
     public double getLng(){
         return this.lng;
+    }
+
+    public long getCreatedAt(){
+        return this.createdAt;
     }
 
     @Override

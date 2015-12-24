@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.example.vit.pinmyplace.R;
 import com.example.vit.pinmyplace.models.UserLocation;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -47,15 +49,23 @@ public class LocationsAdapter extends ArrayAdapter<UserLocation> {
             holder = new ViewHolder();
             holder.title = (TextView) convertView.findViewById(R.id.tvItemTitle);
             holder.location = (TextView) convertView.findViewById(R.id.tvItemLocation);
+            holder.date = (TextView) convertView.findViewById(R.id.tvItemDate);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
-
+        }
             UserLocation location = locations.get(position);
+            //Log.d(MyApp.TAG, location.toString());
+
             holder.title.setText(location.getLocationTitle());
             holder.location.setText(location.getLocationDescription());
-        }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yy", context.getResources().getConfiguration().locale);
+            String currentDate = sdf.format(new Date(location.getCreatedAt()));
+
+            holder.date.setText(currentDate);
+
         return convertView;
     }
 
@@ -64,14 +74,22 @@ public class LocationsAdapter extends ArrayAdapter<UserLocation> {
         return locations.size();
     }
 
+    @Override
+    public UserLocation getItem(int position) {
+        return locations.get(position);
+    }
+
     public void setLocations(List<UserLocation> locations){
+        this.locations.clear();
         this.locations = locations;
         notifyDataSetChanged();
+
     }
 
 
     static class ViewHolder{
         TextView title;
         TextView location;
+        TextView date;
     }
 }

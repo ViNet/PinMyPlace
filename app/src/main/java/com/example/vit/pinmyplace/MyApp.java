@@ -1,17 +1,17 @@
 package com.example.vit.pinmyplace;
 
-import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 
 import com.facebook.FacebookSdk;
+import com.orm.SugarApp;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
-public class MyApp extends Application {
+public class MyApp extends SugarApp {
 
     public static final String TAG = "pinmyplace";
 
