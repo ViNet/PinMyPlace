@@ -10,14 +10,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ListView;
 
+import com.example.vit.pinmyplace.adapters.LocationsAdapter;
 import com.example.vit.pinmyplace.models.User;
 import com.example.vit.pinmyplace.models.UserLocation;
 import com.example.vit.pinmyplace.utils.PrefUtils;
 import com.facebook.login.LoginManager;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -26,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab;
     User user;
 
-    TextView tvUserName;
-    ImageView ivUserImage;
+    ListView lvLocations;
+    LocationsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,18 +37,13 @@ public class MainActivity extends AppCompatActivity {
         initToolbar();
         initViews();
         setListeners();
-        loadUserLocations();
+        setupList();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        Picasso.with(getBaseContext())
-                .load("https://graph.facebook.com/" + user.facebookId + "/picture?type=large")
-                .into(ivUserImage);
-
-        tvUserName.setText(user.name);
+        loadUserLocations();
     }
 
     @Override
@@ -80,8 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        tvUserName = (TextView) findViewById(R.id.tvUserName);
-        ivUserImage = (ImageView) findViewById(R.id.ivUserImage);
+        lvLocations = (ListView) findViewById(R.id.lvLocations);
     }
 
     private void setListeners() {
@@ -111,10 +104,16 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    private void setupList(){
+        adapter = new LocationsAdapter(getBaseContext());
+        lvLocations.setAdapter(adapter);
+    }
+
     private void loadUserLocations(){
         List<UserLocation> userLocations = UserLocation.find(UserLocation.class, "facebook_Id = ?", user.facebookId);
 
         if(userLocations != null){
+            adapter.setLocations(userLocations);
             for(UserLocation location : userLocations){
                 Log.d(MyApp.TAG, location.toString());
             }
