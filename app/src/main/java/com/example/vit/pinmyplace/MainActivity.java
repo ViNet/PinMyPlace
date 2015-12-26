@@ -18,6 +18,8 @@ import com.example.vit.pinmyplace.models.UserLocation;
 import com.example.vit.pinmyplace.utils.PrefUtils;
 import com.facebook.login.LoginManager;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     ListView lvLocations;
     LocationsAdapter adapter;
+
+    List<UserLocation> userLocations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +65,15 @@ public class MainActivity extends AppCompatActivity {
                 PrefUtils.clearCurrentUser(getBaseContext());
                 LoginManager.getInstance().logOut();
                 goToLogin();
-                return true;
+                break;
+            case R.id.action_show_map:
+                Log.d(MyApp.TAG, "Show Map");
+                goToMap();
+                break;
             default:
-                return true;
+                break;
         }
+        return true;
     }
 
     private void initToolbar() {
@@ -110,16 +119,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadUserLocations(){
-        List<UserLocation> userLocations = UserLocation.find(UserLocation.class, "facebook_Id = ?", user.facebookId);
+        this.userLocations = UserLocation.find(UserLocation.class, "facebook_Id = ?", user.facebookId);
 
         if(userLocations != null){
-
+            /*
             for(UserLocation location : userLocations){
                 Log.d(MyApp.TAG, location.toString());
             }
+            */
             adapter.setLocations(userLocations);
         }
+    }
 
+    private void goToMap(){
+        Intent intent = new Intent(MainActivity.this, MapActivity.class);
+        intent.putExtra("locations", Parcels.wrap(userLocations));
+        startActivity(intent);
     }
 
 }

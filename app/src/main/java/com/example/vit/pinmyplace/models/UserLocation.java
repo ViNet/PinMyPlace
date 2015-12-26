@@ -2,6 +2,9 @@ package com.example.vit.pinmyplace.models;
 
 import com.orm.SugarRecord;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class UserLocation extends SugarRecord {
 
     String facebookId;
@@ -14,6 +17,7 @@ public class UserLocation extends SugarRecord {
     //Sugar ORM required empty constructor
     public UserLocation(){
     }
+
 
     public UserLocation(String facebookId){
         createdAt = System.currentTimeMillis();
