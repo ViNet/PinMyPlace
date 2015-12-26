@@ -3,6 +3,7 @@ package com.example.vit.pinmyplace;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.example.vit.pinmyplace.models.UserLocation;
 import com.google.android.gms.common.ConnectionResult;
@@ -29,7 +30,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     GoogleMap googleMap;
     GoogleApiClient googleApiClient;
 
-    public static final float MAP_ZOOM = 10.0f;
+    public static final float MAP_ZOOM = 8.0f;
     public static final int MAP_MOVE_CAMERA_DURATION = 2000;
 
     @Override
@@ -42,6 +43,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             this.locations = Parcels.unwrap(extras.getParcelable("locations"));
         }
 
+        initToolbar();
         initGoogleApiClient();
         setupMapFragment();
     }
@@ -58,7 +60,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onStop();
     }
 
-    public void setupMapFragment() {
+    private void initToolbar(){
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    private void setupMapFragment() {
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.fragment_map);
         mapFragment.getMapAsync(this);
     }
