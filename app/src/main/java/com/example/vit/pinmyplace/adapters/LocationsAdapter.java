@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.vit.pinmyplace.R;
@@ -67,6 +68,13 @@ public class LocationsAdapter extends ArrayAdapter<UserLocation> {
             holder.date.setText(currentDate);
 
         return convertView;
+    }
+
+    public void remove(int position){
+        if(position != ListView.INVALID_POSITION && position <= locations.size()){
+            locations.remove(position);
+            notifyDataSetChanged();
+        }
     }
 
     @Override

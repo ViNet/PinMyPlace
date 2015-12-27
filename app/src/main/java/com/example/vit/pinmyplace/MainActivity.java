@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.vit.pinmyplace.adapters.LocationsAdapter;
@@ -22,7 +24,7 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener {
 
     FloatingActionButton fab;
     User user;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     LocationsAdapter adapter;
 
     List<UserLocation> userLocations;
+
+    int selectedItemPosition = ListView.INVALID_POSITION;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -113,15 +118,17 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    private void setupList(){
+    private void setupList() {
         adapter = new LocationsAdapter(getBaseContext());
         lvLocations.setAdapter(adapter);
+        unregisterForContextMenu(lvLocations);
+        lvLocations.setOnItemLongClickListener(this);
     }
 
-    private void loadUserLocations(){
+    private void loadUserLocations() {
         this.userLocations = UserLocation.find(UserLocation.class, "facebook_Id = ?", user.facebookId);
 
-        if(userLocations != null){
+        if (userLocations != null) {
             /*
             for(UserLocation location : userLocations){
                 Log.d(MyApp.TAG, location.toString());
@@ -131,10 +138,66 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void goToMap(){
+    private void goToMap() {
         Intent intent = new Intent(MainActivity.this, MapActivity.class);
         intent.putExtra("locations", Parcels.wrap(userLocations));
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d(MyApp.TAG, "onItemLongClick");
+        this.selectedItemPosition = position;
+        //view.setSelected(true);
+        startSupportActionMode(modeCallBack);
+
+        lvLocations.setItemChecked(selectedItemPosition, true);
+        return true;
+    }
+
+    private ActionMode.Callback modeCallBack = new ActionMode.Callback() {
+
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        public void onDestroyActionMode(ActionMode mode) {
+            Log.d(MyApp.TAG, "onDestroyActionMode");
+            lvLocations.setItemChecked(selectedItemPosition, false);
+            mode = null;
+        }
+
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            Log.d(MyApp.TAG, "onCreateActionMode");
+            // TODO change selectedItemPosition to lvLocations.getCheckedItemPosition()
+            if(selectedItemPosition != ListView.INVALID_POSITION){
+                mode.setTitle(adapter.getItem(selectedItemPosition).getLocationTitle());
+            }
+            mode.getMenuInflater().inflate(R.menu.main_actions, menu);
+
+            return true;
+        }
+
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()){
+                case R.id.action_delete:
+                    deleteLocation(selectedItemPosition);
+                    break;
+                default:
+                    break;
+
+            }
+            mode.finish();
+            return true;
+        }
+    };
+
+    private void deleteLocation(int itemPosition){
+        Log.d(MyApp.TAG, "Delete " + itemPosition);
+        //delete location from db
+        userLocations.get(itemPosition).delete();
+        // remove from list
+        adapter.remove(itemPosition);
     }
 
 }
