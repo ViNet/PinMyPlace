@@ -1,5 +1,6 @@
 package com.example.vit.pinmyplace;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -128,7 +129,11 @@ public class AddLocationActivity extends AppCompatActivity implements
                     userLocation.setLocationTitle(etTitle.getText().toString());
                     userLocation.setLocationDescription(etDescription.getText().toString());
                     userLocation.save();
+
+                    // TODO return UserLocation object.
+                    setResult(Activity.RESULT_OK);
                     finish();
+
                 }
             }
         });

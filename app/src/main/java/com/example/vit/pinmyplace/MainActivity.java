@@ -1,5 +1,6 @@
 package com.example.vit.pinmyplace;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     int selectedItemPosition = ListView.INVALID_POSITION;
 
+    public static final int REQUEST_ADD_LOCATION = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +49,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         initViews();
         setListeners();
         setupList();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         loadUserLocations();
     }
 
@@ -80,6 +78,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(MyApp.TAG, "reqCode - " + requestCode + ", resCode = " + resultCode);
+        switch (requestCode){
+            case REQUEST_ADD_LOCATION:
+                if(resultCode == Activity.RESULT_OK){
+                    loadUserLocations();
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -98,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 // start new location activity
                 Intent intent = new Intent(MainActivity.this, AddLocationActivity.class);
                 intent.putExtra("facebookId", user.facebookId);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_ADD_LOCATION);
             }
         });
     }
