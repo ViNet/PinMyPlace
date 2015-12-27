@@ -1,10 +1,11 @@
-package com.example.vit.pinmyplace;
+package com.example.vit.pinmyplace.activities;
 
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.example.vit.pinmyplace.R;
 import com.example.vit.pinmyplace.models.UserLocation;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -20,6 +21,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.parceler.Parcels;
 
 import java.util.List;
+
+/**
+ * Get the list of UserLocation {@link UserLocation} and show them on the map
+ * as markers
+ *
+ * @author Vit
+ */
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {

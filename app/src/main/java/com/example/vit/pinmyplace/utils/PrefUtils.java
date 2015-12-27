@@ -6,6 +6,10 @@ import android.content.SharedPreferences;
 import com.example.vit.pinmyplace.models.User;
 import com.google.gson.Gson;
 
+/**
+ * Manipulation with logged user information
+ * uses shared preferences
+ */
 
 public class PrefUtils {
 

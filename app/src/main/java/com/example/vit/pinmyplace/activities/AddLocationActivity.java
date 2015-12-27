@@ -1,4 +1,4 @@
-package com.example.vit.pinmyplace;
+package com.example.vit.pinmyplace.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.vit.pinmyplace.MyApp;
+import com.example.vit.pinmyplace.R;
 import com.example.vit.pinmyplace.models.UserLocation;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -23,6 +25,14 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
+/**
+ * Activity, uses for adding new user location
+ * returns result of this operations:
+ * OK - if user save location
+ * CANCEL - otherwise
+ *
+ * @author Vit
+ */
 public class AddLocationActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 

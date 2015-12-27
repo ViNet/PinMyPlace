@@ -3,6 +3,9 @@ package com.example.vit.pinmyplace.models;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * model for user logged user
+ */
 public class User {
     @SerializedName("name")
     public String name;

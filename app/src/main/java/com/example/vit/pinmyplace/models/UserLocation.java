@@ -4,6 +4,10 @@ import com.orm.SugarRecord;
 
 import org.parceler.Parcel;
 
+/**
+ * Model for user location with some additional information
+ */
+
 @Parcel
 public class UserLocation extends SugarRecord {
 

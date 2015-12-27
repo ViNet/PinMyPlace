@@ -1,4 +1,4 @@
-package com.example.vit.pinmyplace;
+package com.example.vit.pinmyplace.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.vit.pinmyplace.MyApp;
+import com.example.vit.pinmyplace.R;
 import com.example.vit.pinmyplace.adapters.LocationsAdapter;
 import com.example.vit.pinmyplace.models.User;
 import com.example.vit.pinmyplace.models.UserLocation;
@@ -25,6 +27,11 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
+/**
+ * Main screen of app
+ *
+ * shows users locations {@link UserLocation} that was saved in db (SQLite)
+ */
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener {
 
     FloatingActionButton fab;
@@ -141,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         lvLocations.setAdapter(adapter);
 
         lvLocations.setOnItemLongClickListener(this);
+        //TODO implement lvLocations onItemClickListener for dialog show
     }
 
     private void loadUserLocations() {

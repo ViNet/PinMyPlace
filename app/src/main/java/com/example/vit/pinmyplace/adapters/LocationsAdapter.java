@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
+/**
+ * Custom adapter for UserLocations {@link UserLocation}
+ */
 public class LocationsAdapter extends ArrayAdapter<UserLocation> {
 
     Context context;

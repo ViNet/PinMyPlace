@@ -1,10 +1,12 @@
-package com.example.vit.pinmyplace;
+package com.example.vit.pinmyplace.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.vit.pinmyplace.MyApp;
+import com.example.vit.pinmyplace.R;
 import com.example.vit.pinmyplace.models.User;
 import com.example.vit.pinmyplace.utils.PrefUtils;
 import com.facebook.CallbackManager;
@@ -19,6 +21,13 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+/**
+ * Uses for login into app
+ * For now supports only facebook login
+ * If user logged successful than saves user info{@link User} in shared preferences
+ *
+ * @author Vit
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private CallbackManager callbackManager;
@@ -66,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                             User user = gson.fromJson(object.toString(), User.class);
                             PrefUtils.setCurrentUser(user, getApplicationContext());
                             Log.d(MyApp.TAG, user.toString());
-                            
+
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
