@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         switch (item.getItemId()) {
             case R.id.action_logout:
                 Log.d(MyApp.TAG, "Logout");
-                PrefUtils.clearCurrentUser(getBaseContext());
+                PrefUtils.clearCurrentUser(getApplicationContext());
                 LoginManager.getInstance().logOut();
                 goToLogin();
                 break;
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void checkUser() {
-        this.user = PrefUtils.getCurrentUser(getBaseContext());
+        this.user = PrefUtils.getCurrentUser(getApplicationContext());
         if (this.user == null) {
             // go to login page
             goToLogin();

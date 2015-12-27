@@ -64,9 +64,9 @@ public class LoginActivity extends AppCompatActivity {
 
                             Gson gson = new Gson();
                             User user = gson.fromJson(object.toString(), User.class);
-                            PrefUtils.setCurrentUser(user, getBaseContext());
+                            PrefUtils.setCurrentUser(user, getApplicationContext());
                             Log.d(MyApp.TAG, user.toString());
-
+                            
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
