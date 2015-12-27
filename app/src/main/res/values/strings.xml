@@ -3,11 +3,14 @@
     <string name="facebook_app_id">501433283361919</string>
     <string name="my_locations">My locations</string>
 
-    <!-- MAIN MENU -->
+    <!-- MAIN ACTIVITY -->
     <string name="logout">Logout</string>
     <string name="title_activity_add_location">AddLocationActivity</string>
     <string name="show_map">Show map</string>
     <string name="delete">Delete</string>
+
+    <string name="message_empty">no saved locations</string>
+    <string name="message_add_location">Add a location</string>
 
     <!-- ADD LOCATION ACTIVITY-->
     <string name="title">Title</string>

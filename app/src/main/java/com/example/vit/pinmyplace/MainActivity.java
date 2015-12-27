@@ -120,6 +120,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if (this.user == null) {
             // go to login page
             goToLogin();
+        } else {
+            Log.d(MyApp.TAG, "logged user - " + user);
         }
     }
 
@@ -131,13 +133,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void setupList() {
+        View emptyView = getLayoutInflater().inflate(R.layout.empty_view, null);
+        addContentView(emptyView, lvLocations.getLayoutParams());
+        lvLocations.setEmptyView(emptyView);
+
         adapter = new LocationsAdapter(getBaseContext());
         lvLocations.setAdapter(adapter);
-        unregisterForContextMenu(lvLocations);
+
         lvLocations.setOnItemLongClickListener(this);
     }
 
     private void loadUserLocations() {
+        Log.d(MyApp.TAG, user.toString());
+
         this.userLocations = UserLocation.find(UserLocation.class, "facebook_Id = ?", user.facebookId);
 
         if (userLocations != null) {
